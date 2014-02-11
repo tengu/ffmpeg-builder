@@ -1,6 +1,8 @@
 
 all:
 
+
+#ffmpeg=../ffmpeg/ffmpeg
 ffmpeg=/usr/local/bin/ffmpeg
 infile=test.mov
 
@@ -21,3 +23,12 @@ h264:
 
 rotate:
 	$(ffmpeg) -i $(infile) -strict -2 -vf "rotate=90*(PI/180)" x.rotated.mp4
+# h.264
+# rotate
+
+codecs:
+	$(ffmpeg) -codecs 2>/dev/null | egrep '(vorb|264|vpx)'
+
+
+test: metadata webm codecs
+

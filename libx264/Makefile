@@ -1,4 +1,6 @@
-all: extract build
+all: 
+	make extract
+	make build
 
 include ../common.mk
 
@@ -21,10 +23,14 @@ x.extracted: last_x264.tar.bz2
 $(libx264_src_dir)/config.h: x.extracted
 	cd $(libx264_src_dir); ./configure --enable-shared --enable-static
 
-build: $(libx264_src_dir)/config.h
+build_artifact=$(libx264_src_dir)/libx264.so.142
+
+build: $(build_artifact)
+
+$(build_artifact): $(libx264_src_dir)/config.h
 	cd $(libx264_src_dir); make
 
-install:
+install: build
 	cd $(libx264_src_dir); make install
 	ldconfig
 
