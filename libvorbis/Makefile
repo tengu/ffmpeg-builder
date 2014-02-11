@@ -1,5 +1,5 @@
 
-all:
+all: build
 
 include ../common.mk
 
@@ -15,10 +15,15 @@ tarball=$(release).tar.gz
 fetch: $(tarball)
 extract: $(src_dir)
 configure: $(src_dir)/config.h
-build:
+build_artifact=$(src_dir)/lib/.libs/libvorbisenc.so
+build: $(build_artifact)
+$(build_artifact): configure
 	cd $(src_dir); make
-install: build
+install: # build
+	find /usr/local | sort > x.0
 	cd $(src_dir); make install
+	find /usr/local | sort > x.1
+	comm -23 x.1 x.0 > x.installed
 	ldconfig
 
 $(tarball): 

@@ -1,4 +1,4 @@
-all:
+all: build
 
 include ../common.mk
 
@@ -14,8 +14,11 @@ extract: $(src_dir)
 configure: $(src_dir)/config.h
 build: $(src_dir)/config.h
 	cd $(src_dir); make
-install: build
+install: # build
+	find /usr/local | sort > x.0
 	cd $(src_dir); make install
+	find /usr/local | sort > x.1
+	comm -23 x.1 x.0 > x.installed
 	ldconfig
 
 $(src_dir)/config.h: $(src_dir)

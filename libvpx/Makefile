@@ -13,7 +13,7 @@ fetch: $(tarball)
 extract: $(release)
 configure: $(src_dir)/Makefile
 build: $(src_dir)/libvpx.so
-install: /usr/local/lib/libvpx.so
+install: # /usr/local/lib/libvpx.so
 
 $(tarball):
 	wget http://webm.googlecode.com/files/$(tarball)
